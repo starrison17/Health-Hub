@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthHub - Diabetes Risk Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        nav { background-color: #4CAF50; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; animation: slideDown 0.8s ease-out; }
+        nav .logo { font-size: 1.5em; font-weight: bold; }
+        nav .logo img { height: 40px; margin-right: 10px; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: white; text-decoration: none; transition: color 0.3s ease; }
+        nav ul li a:hover { color: #e8f5e8; transform: scale(1.1); }
+        .hamburger { display: none; cursor: pointer; font-size: 1.5em; }
+        .form-container { max-width: 500px; margin: 50px auto; background: linear-gradient(135deg, #e8f5e8, #ffffff); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: slideInFromLeft 1s ease-out; }
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; fill: #4CAF50; z-index: 1; }
+        input, select { width: 100%; padding: 12px 12px 12px 40px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; background: #fff; }
+        input:focus, select:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76,175,80,0.3); outline: none; }
+        /* Stylish dropdown styling */
+        select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 10px center; background-size: 20px; cursor: pointer; }
+        select:hover { border-color: #45a049; }
+        button { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; border-radius: 8px; font-size: 1.1em; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #result { margin-top: 30px; text-align: center; font-size: 2em; font-weight: bold; color: #d32f2f; opacity: 0; animation: floatIn 1s ease-out forwards; }
+        @keyframes floatIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .disclaimer { color: #ff9800; font-size: 0.9em; margin-top: 20px; text-align: center; animation: fadeIn 2s ease-out; }
+        @media (max-width: 768px) { nav ul { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: #4CAF50; } nav ul.show { display: flex; } .hamburger { display: block; } }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="HealthHub Logo" onerror="this.style.display='none'; this.nextSibling.style.display='inline';"><span style="display:none;">HealthHub</span>
+        </div>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="diabetes.html">Diabetes Risk</a></li>
+            <li><a href="bmi.html">BMI Calculator</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="other.html">Other Health Info</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+    
+    <div class="form-container">
+        <h2 style="text-align: center; color: #4CAF50;">Check Your Diabetes Risk</h2>
+        <form id="diabetesForm">
+            <div class="input-group">
+                <svg viewBox="0 0 24 24"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"/></svg>
+                <input type="number" id="age" placeholder="Enter your age" required>
+            </div>
+            <div class="input-group">
+                <svg viewBox="0 0 24 24"><path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/></svg>
+                <input type="number" id="weight" step="0.1" placeholder="Weight in kg" required>
+            </div>
+            <div class="input-group">
+                <svg viewBox="0 0 24 24"><path d="M7 2V4H5V2H7M5 6V8H7V6H5M5 10V12H7V10H5M5 14V16H7V14H5M5 18V20H7V18H5M9 2V4H11V2H9M9 6V8H11V6H9M9 10V12H11V10H9M9 14V16H11V14H9M9 18V20H11V18H9M13 2V4H15V2H13M13 6V8H15V6H13M13 10V12H15V10H13M13 14V16H15V14H13M13 18V20H15V18H13M17 2V4H19V2H17M17 6V8H19V6H17M17 10V12H19V10H17M17 14V16H19V14H17M17 18V20H19V18H17Z"/></svg>
+                <input type="number" id="height" step="0.01" placeholder="Height in meters" required>
+            </div>
+            <div class="input-group">
+                <svg viewBox="0 0 24 24"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"/></svg>
+                <select id="familyHistory" required>
+                    <option value="">Family history of diabetes?</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <svg viewBox="0 0 24 24"><path d="M13 7H11V9H13V7M13 11H11V13H13V11M13 15H11V17H13V15M17 7H15V9H17V7M17 11H15V13H17V11M17 15H15V17H17V15M7 7H5V9H7V7M7 11H5V13H7V11M7 15H5V17H7V15M21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.11 3 19V5C3 3.89 3.89 3 5 3H19C20.11 3 21 3.89 21 5M19 5H5V19H19V5Z"/></svg>
+                <select id="activity" required>
+                    <option value="">Physical activity level?</option>
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <button type="button" onclick="calculateRisk()">Calculate Risk</button>
+        </form>
+        <div id="result"></div>
+        <p class="disclaimer">Disclaimer: This tool provides a general estimate based on common risk factors. It is not a medical diagnosis. Consult a healthcare professional for personalized advice.</p>
+    </div>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show');
+        }
+        
+        function calculateRisk() {
+            const age = document.getElementById('age').value;
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+            const family = document.getElementById('familyHistory').value;
+            const activity = document.getElementById('activity').value;
+            
+            if (!age || !weight || !height || !family || !activity) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            let score = 0;
+            const bmi = parseFloat(weight) / (parseFloat(height) * parseFloat(height));
+            
+            if (parseInt(age) > 45) score += 1;
+            if (bmi > 25) score += 1;
+            if (family === 'yes') score += 1;
+            if (activity === 'low') score += 1;
+            
+            let risk = score >= 3 ? 'High' : score >= 2 ? 'Medium' : 'Low';
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = `Your estimated risk level: ${risk}`;
+            resultDiv.style.opacity = 1; // Ensure it's visible
+            resultDiv.style.animation = 'floatIn 1s ease-out';
+            console.log('Risk calculated:', risk); // For debugging
+        }
+    </script>
+</body>
+</html>

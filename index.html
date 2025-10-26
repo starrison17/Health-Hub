@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthHub - Welcome</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f4; 
+            animation: fadeIn 1s ease-in;
+            color: #333;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        nav { 
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            animation: slideDown 0.8s ease-out; 
+        }
+
+        nav .logo { 
+            font-size: 1.5em; 
+            font-weight: bold; 
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo img { height: 40px; margin-right: 10px; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            transition: color 0.3s ease, transform 0.3s ease; 
+        }
+        nav ul li a:hover { color: #e8f5e8; transform: scale(1.1); }
+
+        .hamburger { 
+            display: none; 
+            cursor: pointer; 
+            width: 30px; 
+            height: 24px; 
+            position: relative; 
+            transition: transform 0.3s ease; 
+        }
+        .hamburger:hover { transform: scale(1.1); }
+        .hamburger span { 
+            display: block; 
+            width: 100%; 
+            height: 3px; 
+            background: white; 
+            border-radius: 2px; 
+            position: absolute; 
+            transition: all 0.3s ease; 
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger span:nth-child(3) { bottom: 0; }
+        .hamburger:hover span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger:hover span:nth-child(2) { opacity: 0; }
+        .hamburger:hover span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+
+        /* HERO SECTION */
+        .hero { 
+            background: url(images/background-doc.jpg) no-repeat center center/cover; 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            text-align: center; 
+            position: relative; 
+        }
+
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(0,0,0,0.35); /* slight fade effect */
+        }
+
+        .hero h1, .hero p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 { font-size: 3em; animation: slideUp 1.5s ease-out; }
+        .hero p { font-size: 1.2em; animation: slideUp 2s ease-out; }
+
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .section { 
+            display: flex; 
+            align-items: center; 
+            padding: 60px 50px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            animation: fadeInUp 1s ease-out both; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            margin-bottom: 20px;
+        }
+
+        .section:nth-child(even) { flex-direction: row-reverse; }
+
+        .section img { 
+            width: 45%; 
+            height: 300px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            transition: transform 0.3s ease; 
+            max-width: 100%;
+        }
+
+        .section img:hover { transform: scale(1.05); }
+
+        .section .text { width: 50%; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+        .section .text .icon { width: 50px; height: 50px; margin-bottom: 15px; fill: #4CAF50; }
+        .section .text h2 { color: #4CAF50; margin-bottom: 10px; }
+        .section .text p { font-size: 1.1em; line-height: 1.6; }
+
+        @keyframes fadeInUp { 
+            from { transform: translateY(30px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+
+        .buttons { 
+            text-align: center; 
+            padding: 60px; 
+            background: #e8f5e8; 
+            animation: slideInFromBottom 1s ease-out; 
+            border-radius: 10px; 
+            margin: 20px auto; 
+            max-width: 1200px;
+        }
+
+        @keyframes slideInFromBottom { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        button { 
+            background-color: #4CAF50; 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            margin: 10px; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            transition: all 0.3s ease; 
+            font-size: 1.1em; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:hover { 
+            background-color: #45a049; 
+            transform: translateY(-5px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) { /* Tablets */
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+            .section { padding: 40px; }
+            .section img { height: 250px; width: 40%; }
+            .section .text { width: 55%; }
+            .section .text p { font-size: 1em; }
+            .section .text .icon { width: 40px; height: 40px; }
+            button { padding: 12px 25px; font-size: 1em; }
+        }
+
+        @media (max-width: 768px) { /* Mobile */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 60px; 
+                left: 0; 
+                width: 100%; 
+                background-color: #4CAF50; 
+            } 
+            nav ul.show { display: flex; } 
+            .hamburger { display: block; } 
+            .hero { height: 80vh; }
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 1em; }
+            .section { flex-direction: column; padding: 30px; margin-bottom: 15px; } 
+            .section img, .section .text { width: 100%; } 
+            .section img { height: 200px; margin-bottom: 20px; }
+            .section .text { padding: 10px; text-align: center; }
+            .section .text .icon { width: 40px; height: 40px; margin: 0 auto 15px; }
+            .section .text h2 { font-size: 1.5em; }
+            .section .text p { font-size: 0.9em; }
+            .buttons { padding: 30px; }
+            button { width: 100%; max-width: 300px; padding: 15px; font-size: 1em; margin: 10px 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="HealthHub Logo" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
+            <span style="display:none;">HealthHub</span>
+        </div>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="diabetes.html">Diabetes Risk</a></li>
+            <li><a href="bmi.html">BMI Calculator</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="other.html">Other Health Info</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Welcome to HealthHub</h1>
+            <p>Empower your health journey with simple tools and trusted resources.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/healthy-eating.jpg" alt="Healthy eating with fruits and vegetables">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/></svg>
+            <h2>Nutrition Matters</h2>
+            <p>Discover balanced eating habits that enhance your body and mind for a healthier lifestyle.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/exercise.jpg" alt="Person exercising outdoors">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M13 7H11V9H13V7M13 11H11V13H13V11M13 15H11V17H13V15M17 7H15V9H17V7M17 11H15V13H17V11M17 15H15V17H17V15M7 7H5V9H7V7M7 11H5V13H7V11M7 15H5V17H7V15M21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.11 3 19V5C3 3.89 3.89 3 5 3H19C20.11 3 21 3.89 21 5M19 5H5V19H19V5Z"/></svg>
+            <h2>Stay Active</h2>
+            <p>Regular exercise strengthens your heart, boosts your energy, and improves overall well-being.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/wellness.jpg" alt="Meditation and relaxation">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"/></svg>
+            <h2>Mindful Wellness</h2>
+            <p>Take care of your mind as much as your body. Relaxation and mindfulness lead to a balanced life.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/mental-health.jpg" alt="Mental health support">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"/></svg>
+            <h2>Mental Health</h2>
+            <p>Support your mental well-being with tips on stress management and emotional balance.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/preventive-care.jpg" alt="Preventive care">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/></svg>
+            <h2>Preventive Care</h2>
+            <p>Stay ahead of health issues with regular check-ups and proactive lifestyle choices.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <img src="images/community.jpg" alt="Community support">
+        <div class="text">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"/></svg>
+            <h2>Community Support</h2>
+            <p>Join a network of health enthusiasts for shared tips, motivation, and support.</p>
+        </div>
+    </section>
+
+    <section class="buttons">
+        <button onclick="location.href='diabetes.html'">Check Diabetes Risk</button>
+        <button onclick="location.href='bmi.html'">Calculate BMI</button>
+        <button onclick="location.href='contact.html'">Contact Us</button>
+        <button onclick="location.href='other.html'">Other Health Info</button>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show');
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.animationPlayState = 'paused';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
