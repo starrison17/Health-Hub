@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthHub - Other Health Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f4; 
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes bounceIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+
+    nav {
+        background-color: #4CAF50; 
+        color: white; 
+        padding: 10px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        position: sticky; 
+        top: 0; 
+        z-index: 100; 
+        animation: slideDown 0.8s ease-out;
+    }
+
+    nav .logo { font-size: 1.5em; font-weight: bold; display: flex; align-items: center; }
+    nav .logo img { height: 40px; margin-right: 10px; }
+
+    nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    nav ul li { margin: 0 15px; }
+    nav ul li a { color: white; text-decoration: none; transition: color 0.3s ease; }
+    nav ul li a:hover { color: #e8f5e8; transform: scale(1.1); }
+
+    .hamburger { display: none; cursor: pointer; font-size: 1.5em; }
+
+    .section {
+        max-width: 700px; 
+        margin: 20px auto; 
+        background: white; 
+        padding: 20px; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+        animation: fadeInUp 1s ease-out; 
+        animation-fill-mode: both; 
+        display: flex; 
+        align-items: center; 
+        gap: 20px;
+    }
+
+    /* 3D Image Styling */
+    .section img {
+        width: 110px; 
+        height: 110px; 
+        border-radius: 6px;
+        object-fit: cover; 
+        background: #fff;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        animation: bounceIn 1s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transform: perspective(500px) rotateX(5deg) rotateY(-5deg);
+    }
+
+    .section img:hover {
+        transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.1);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+        animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: perspective(600px) translateX(0) rotateY(0); }
+        25% { transform: perspective(600px) translateX(-5px) rotateY(-3deg); }
+        50% { transform: perspective(600px) translateX(5px) rotateY(3deg); }
+        75% { transform: perspective(600px) translateX(-5px) rotateY(-3deg); }
+    }
+
+    .text-content { flex: 1; }
+    h2 { color: #4CAF50; margin-top: 0; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    a { color: #4CAF50; transition: color 0.3s ease; }
+    a:hover { color: #45a049; }
+
+    @media (max-width: 768px) {
+        .section { flex-direction: column; text-align: center; }
+        .section img { margin-bottom: 10px; }
+        nav ul { 
+            display: none; 
+            flex-direction: column; 
+            position: absolute; 
+            top: 60px; 
+            left: 0; 
+            width: 100%; 
+            background-color: #4CAF50; 
+        } 
+        nav ul.show { display: flex; } 
+        .hamburger { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { 
+        * { animation: none !important; transition: none !important; } 
+    }
+</style>
+
+
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="HealthHub Logo" onerror="this.style.display='none'; this.nextSibling.style.display='inline';"><span style="display:none;">HealthHub</span>
+        </div>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="diabetes.html">Diabetes Risk</a></li>
+            <li><a href="bmi.html">BMI Calculator</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="other.html">Other Health Info</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+
+<div class="section">
+    <img src="images/Nutrition.jpg" alt="Nutrition" />
+    <div class="text-content">
+        <h2>Nutrition Tips</h2>
+        <p>Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. Limit processed foods and sugars.</p>
+        <ul>
+            <li>Aim for 5 servings of fruits/veggies daily.</li>
+            <li>Stay hydrated with at least 8 glasses of water.</li>
+        </ul>
+        <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank">Learn more from WHO</a>
+    </div>
+</div>
+
+<div class="section">
+    <img src="images/cycling.jpg" alt="Exercise"/>
+    <div class="text-content">
+        <h2>Exercise Guides</h2>
+        <p>Regular physical activity improves heart health, mood, and energy. Aim for 150 minutes of moderate exercise weekly.</p>
+        <ul>
+            <li>Try walking, cycling, or yoga.</li>
+            <li>Include strength training 2-3 times a week.</li>
+        </ul>
+        <a href="https://www.cdc.gov/physicalactivity/basics/index.htm" target="_blank">CDC Exercise Guidelines</a>
+    </div>
+</div>
+
+<div class="section">
+    <img src="images/sleeping.jpg" alt="Mental Health" />
+    <div class="text-content">
+        <h2>Mental Health Resources</h2>
+        <p>Prioritize mental well-being through mindfulness, sleep, and social connections.</p>
+        <ul>
+            <li>Practice deep breathing or meditation.</li>
+            <li>Seek help if feeling overwhelmed.</li>
+        </ul>
+        <a href="https://www.who.int/health-topics/mental-disorders" target="_blank">WHO Mental Health Info</a>
+    </div>
+</div>
+
+<div class="section">
+    <img src="images/counselling.jpg" alt="Wellness"/>
+    <div class="text-content">
+        <h2>General Wellness</h2>
+        <p>Combine healthy habits for overall wellness. Track progress and consult professionals.</p>
+        <a href="https://www.cdc.gov/healthyweight/index.html" target="_blank">CDC Healthy Weight Tips</a>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('nav-menu');
+        menu.classList.toggle('show');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section').forEach(section => {
+        section.style.animationPlayState = 'paused';
+        observer.observe(section);
+    });
+</script>
+
+
+</body>
+</html>
